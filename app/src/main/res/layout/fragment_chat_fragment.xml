@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/primary"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        tools:context=".features.chat.ui.fragments.ChatFragment">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Halo,"
+                    android:fontFamily="@font/popreg"
+                    android:textSize="@dimen/_8ssp"
+                    android:textColor="@color/bg_chat"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanyakan saya sesuatu dong"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/white"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_height="match_parent"
+
+                    android:background="@drawable/bg_chat">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lrEmpty"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_150sdp"
+                            android:src="@drawable/iv_ai"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Tanyakan saya sesuatu"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:fontFamily="@font/popsem"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/primary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Tanyakan saya sesuatu"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:fontFamily="@font/popreg"
+                            android:textSize="@dimen/_9ssp"
+                            android:textColor="@color/gray"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lrChat"
+                        android:orientation="vertical"
+                        android:layout_above="@id/rlBottom">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            tools:listitem="@layout/item_chat"
+                            android:id="@+id/rv"
+                            android:layout_height="wrap_content"/>
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_below="@id/rv"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            android:id="@+id/mainProgressBar"
+                            style="@android:style/Widget.Holo.ProgressBar"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:id="@+id/rlBottom"
+                        android:layout_alignParentBottom="true"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/rlAction"
+                            android:id="@+id/til_text"
+                            app:boxBackgroundColor="#F0F0F0"
+
+                            android:layout_marginBottom="@dimen/_5sdp"
+
+                            app:boxCornerRadiusBottomEnd="@dimen/_20sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_20sdp"
+                            app:boxStrokeColor="#F0F0F0"
+                            app:hintTextColor="@color/bg_chat"
+                            app:cursorColor="@color/primary"
+
+                            app:boxCornerRadiusTopEnd="@dimen/_20sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_20sdp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/popmed"
+                                android:minLines="1"
+                                android:maxLines="4"
+                                style="@style/ThemeOverlay.Material3.TextInputEditText"
+                                android:hint="Tuliskan sesuatu"
+
+                                android:gravity="start"
+                                android:textColorHint="@color/black"
+                                android:inputType="textMultiLine"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp"></com.google.android.material.textfield.TextInputEditText>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:id="@+id/rlAction"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_5sdp"
+
+                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content">
+
+
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                app:cardCornerRadius="@dimen/_20sdp"
+
+                                app:cardElevation="0dp"
+                                android:id="@+id/cvSend"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                app:cardBackgroundColor="@color/primary"
+                                app:contentPadding="@dimen/_5sdp"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_width="@dimen/_18sdp"
+                                    android:id="@+id/btnSend"
+                                    android:backgroundTint="@color/white"
+                                    android:background="@drawable/ic_send"
+                                    android:layout_height="@dimen/_18sdp"/>
+                            </androidx.cardview.widget.CardView>
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
