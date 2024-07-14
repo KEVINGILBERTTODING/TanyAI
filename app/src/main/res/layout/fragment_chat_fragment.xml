@@ -3,7 +3,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="@color/primary"
+        android:background="@drawable/wave_bg"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="match_parent"
         tools:context=".features.chat.ui.fragments.ChatFragment">
@@ -21,6 +21,7 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvGreeting"
                     android:text="Halo,"
                     android:fontFamily="@font/popreg"
                     android:textSize="@dimen/_8ssp"
@@ -29,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tanyakan saya sesuatu dong"
+                    android:text="Tanyain aku sesuatu dong"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:fontFamily="@font/popmed"
@@ -58,7 +59,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Tanyakan saya sesuatu"
+                            android:text="Hai, aku TanyAI "
                             android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_marginRight="@dimen/_10sdp"
@@ -70,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Tanyakan saya sesuatu"
+                            android:text="Aku bisa kasi informasi yang bikin kamu mind blowing."
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:fontFamily="@font/popreg"
@@ -79,32 +80,43 @@
 
                     </LinearLayout>
 
-
-                    <LinearLayout
+                    <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/lrChat"
-                        android:orientation="vertical"
-                        android:layout_above="@id/rlBottom">
-                        <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/mainNestedScroll"
+                        android:layout_above="@id/rlBottom"
+                        android:layout_marginTop="@dimen/_10sdp"
+
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:paddingLeft="@dimen/_10sdp"
-                            android:paddingRight="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            tools:listitem="@layout/item_chat"
-                            android:id="@+id/rv"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="match_parent"
+                            android:id="@+id/lrChat"
+                            android:orientation="vertical"
+                            >
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:paddingRight="@dimen/_10sdp"
+                                tools:listitem="@layout/item_chat"
+                                android:id="@+id/rv"
+                                android:layout_height="wrap_content"/>
 
-                        <ProgressBar
-                            android:layout_width="wrap_content"
-                            android:layout_below="@id/rv"
-                            android:layout_gravity="center"
-                            android:visibility="gone"
-                            android:id="@+id/mainProgressBar"
-                            style="@android:style/Widget.Holo.ProgressBar"
-                            android:layout_height="wrap_content"/>
+                            <ProgressBar
+                                android:layout_width="wrap_content"
+                                android:layout_below="@id/rv"
+                                android:layout_gravity="center"
+                                android:id="@+id/mainProgressBar"
+                                android:visibility="gone"
+                                style="@android:style/Widget.Holo.ProgressBar"
+                                android:layout_height="wrap_content"/>
 
-                    </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+
 
 
 
@@ -141,9 +153,6 @@
                                 android:fontFamily="@font/popmed"
                                 android:minLines="1"
                                 android:maxLines="4"
-                                style="@style/ThemeOverlay.Material3.TextInputEditText"
-                                android:hint="Tuliskan sesuatu"
-
                                 android:gravity="start"
                                 android:textColorHint="@color/black"
                                 android:inputType="textMultiLine"

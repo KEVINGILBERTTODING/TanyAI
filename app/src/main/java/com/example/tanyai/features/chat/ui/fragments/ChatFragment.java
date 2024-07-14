@@ -60,8 +60,10 @@ public class ChatFragment extends Fragment {
     }
 
     private void init() {
+
         generativeModel = new GenerativeModel(ConstantsAi.AI_MODEL, BuildConfig.apiKey);
         modelFutures = GenerativeModelFutures.from(generativeModel);
+        binding.tvGreeting.setText(DateUtil.getGreeting());
     }
 
     private void listener() {
@@ -87,7 +89,6 @@ public class ChatFragment extends Fragment {
                 timeStamp
         );
 
-        binding.mainProgressBar.setVisibility(View.VISIBLE);
 
         resetState();
 
@@ -105,10 +106,17 @@ public class ChatFragment extends Fragment {
     private void resetState() {
         binding.etText.setText("");
         KeyboardUtils.hideKeyboard(requireActivity());
+        binding.mainProgressBar.setVisibility(View.VISIBLE);
+
         binding.cvSend.setVisibility(View.GONE);
 
         binding.lrEmpty.setVisibility(View.GONE);
-        binding.rv.smoothScrollToPosition(chatAdapter.getItemCount());
+        binding.mainNestedScroll.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.mainNestedScroll.smoothScrollTo(0, binding.mainNestedScroll.getChildAt(0).getHeight());
+            }
+        });
     }
 
     private void showChat() {
@@ -125,6 +133,7 @@ public class ChatFragment extends Fragment {
         Content content = new Content.Builder()
                 .addText(prompt)
                 .build();
+
 
         Executor executor = Executors.newSingleThreadExecutor();
         ListenableFuture<GenerateContentResponse> response = modelFutures.generateContent(content);

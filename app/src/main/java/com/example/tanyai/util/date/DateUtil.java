@@ -1,6 +1,7 @@
 package com.example.tanyai.util.date;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -19,5 +20,20 @@ public class DateUtil {
 
         // Gabungkan tanggal dan waktu
         return date + ", " + time;
+    }
+
+    public static String getGreeting() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (hour >= 6 && hour < 12) {
+            return "Selamat Pagi,";
+        } else if (hour >= 12 && hour < 15) {
+            return "Selamat Siang,";
+        } else if (hour >= 15 && hour < 18) {
+            return "Selamat Sore,";
+        } else {
+            return "Selamat Malam,";
+        }
     }
 }
