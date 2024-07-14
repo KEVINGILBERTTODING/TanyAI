@@ -79,6 +79,7 @@ dependencies {
     // Required for streaming operations (to use `Publisher` from Reactive Streams)
     implementation("org.reactivestreams:reactive-streams:1.0.4")
     implementation ("com.github.dhaval2404:imagepicker:2.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
 }

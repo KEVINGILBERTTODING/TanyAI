@@ -1,14 +1,19 @@
 package com.example.tanyai.core.models;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 public class PromptModel {
     private String text;
     private boolean isMe;
     private String timeStamp;
+    private Bitmap bitmap;
 
-    public PromptModel(String text, boolean isMe, String timeStamp) {
+    public PromptModel(String text, boolean isMe, String timeStamp, Bitmap bitmap) {
         this.text = text;
         this.isMe = isMe;
         this.timeStamp = timeStamp;
+        this.bitmap = bitmap;
     }
 
     public String getText() {
@@ -33,5 +38,13 @@ public class PromptModel {
 
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }

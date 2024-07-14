@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,6 +58,7 @@ public class ChatFragment extends Fragment {
     private ChatAdapter chatAdapter;
     private GenerativeModel generativeModel;
     private GenerativeModelFutures modelFutures;
+    private Bitmap bitmapSelected;
     private Dialog progressDialog;
     private String TAG = ChatFragment.class.getSimpleName();
 
@@ -108,8 +110,37 @@ public class ChatFragment extends Fragment {
 
         });
 
+        binding.btnDeleteImage.setOnClickListener(v -> {
+            bitmapSelected = null;
+            binding.btnDeleteImage.setVisibility(View.GONE);
+            binding.btnAddImagee.setVisibility(View.VISIBLE);
+        });
+
+        binding.btnAddImagee.setOnClickListener(v -> {
+            pickMedia.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+        });
+
 
     }
+
+    ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                // Callback is invoked after the user selects a media item or closes the
+                // photo picker.
+                if (uri != null) {
+                    try {
+                        bitmapSelected = uriToBitmap(uri);
+                        binding.btnDeleteImage.setVisibility(View.VISIBLE);
+                        binding.btnAddImagee.setVisibility(View.GONE);
+                    } catch (IOException e) {
+                        bitmapSelected = null;
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
 
     private void promptValidate() {
         String text = binding.etText.getText().toString();
@@ -122,17 +153,23 @@ public class ChatFragment extends Fragment {
             ToastUtil.showToast("Tanggal tidak valid", requireContext());
             return;
         }
+
+        if (bitmapSelected != null && text.isEmpty()) {
+            ToastUtil.showToast("Prompt tidak boleh kosong", requireContext());
+            return;
+        }
         PromptModel promptModel = new PromptModel(
                 text,
                 true,
-                timeStamp
+                timeStamp,
+                bitmapSelected
         );
 
 
         resetState();
 
         storePromptToList(promptModel);
-        storeToModel(promptModel.getText(), null, false);
+        storeToModel(promptModel.getText(), bitmapSelected, false);
 
 
     }
@@ -145,7 +182,9 @@ public class ChatFragment extends Fragment {
     private void resetState() {
         binding.etText.setText("");
         KeyboardUtils.hideKeyboard(requireActivity());
+        binding.tilText.setError(null);
         binding.mainProgressBar.setVisibility(View.VISIBLE);
+        binding.btnDeleteImage.setVisibility(View.GONE);
 
         binding.cvSend.setVisibility(View.GONE);
 
@@ -219,54 +258,118 @@ public class ChatFragment extends Fragment {
             }, executor);
 
         } else {
-            Content content = new Content.Builder()
-                    .addText(prompt)
-                    .build();
+           if (bitmap != null) {
+               Content content = new Content.Builder()
+                       .addText(prompt)
+                       .addImage(bitmap)
+                       .build();
+               Executor executor = Executors.newSingleThreadExecutor();
+               ListenableFuture<GenerateContentResponse> response = modelFutures.generateContent(content);
+               Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
 
-            Executor executor = Executors.newSingleThreadExecutor();
-            ListenableFuture<GenerateContentResponse> response = modelFutures.generateContent(content);
-            Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
+                   @Override
+                   public void onSuccess(GenerateContentResponse result) {
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               binding.mainProgressBar.setVisibility(View.GONE);
+                               binding.cvSend.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onSuccess(GenerateContentResponse result) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            binding.mainProgressBar.setVisibility(View.GONE);
-                            binding.cvSend.setVisibility(View.VISIBLE);
+                               binding.btnAddImagee.setVisibility(View.VISIBLE);
 
-                            String resultText = result.getText();
+                               String resultText = result.getText();
 
-                            PromptModel promptModel = new PromptModel(
-                                    resultText,
-                                    false,
-                                    DateUtil.getCurrentDateTime()
-                            );
-
-                            storePromptToList(promptModel);
-                            System.out.println(resultText);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (getActivity() != null) {
-                                ToastUtil.showToast("Terjadi kesalahan", getActivity());
-                                binding.cvSend.setVisibility(View.VISIBLE);
-                                binding.mainProgressBar.setVisibility(View.GONE);
+                               PromptModel promptModel = new PromptModel(
+                                       resultText,
+                                       false,
+                                       DateUtil.getCurrentDateTime(),
+                                       bitmap
+                               );
+                               bitmapSelected = null;
 
 
-                            }
-                        }
-                    });
 
-                    Log.d(TAG, "onFailure: " + t.getMessage());
-                }
-            }, executor);
+                               storePromptToList(promptModel);
+                               System.out.println(resultText);
+                           }
+                       });
+                   }
+
+                   @Override
+                   public void onFailure(Throwable t) {
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               if (getActivity() != null) {
+                                   bitmapSelected = null;
+                                   binding.btnAddImagee.setVisibility(View.VISIBLE);
+
+
+                                   ToastUtil.showToast("Terjadi kesalahan", getActivity());
+                                   binding.cvSend.setVisibility(View.VISIBLE);
+                                   binding.mainProgressBar.setVisibility(View.GONE);
+
+
+                               }
+                           }
+                       });
+
+                       Log.d(TAG, "onFailure: " + t.getMessage());
+                   }
+               }, executor);
+           }else {
+               Content content = new Content.Builder()
+                       .addText(prompt)
+                       .build();
+
+               Executor executor = Executors.newSingleThreadExecutor();
+               ListenableFuture<GenerateContentResponse> response = modelFutures.generateContent(content);
+               Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
+
+                   @Override
+                   public void onSuccess(GenerateContentResponse result) {
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               binding.mainProgressBar.setVisibility(View.GONE);
+                               binding.cvSend.setVisibility(View.VISIBLE);
+
+                               String resultText = result.getText();
+
+                               PromptModel promptModel = new PromptModel(
+                                       resultText,
+                                       false,
+                                       DateUtil.getCurrentDateTime(),
+                                       null
+                               );
+
+                               storePromptToList(promptModel);
+                               System.out.println(resultText);
+                           }
+                       });
+                   }
+
+                   @Override
+                   public void onFailure(Throwable t) {
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               if (getActivity() != null) {
+                                   ToastUtil.showToast("Terjadi kesalahan", getActivity());
+                                   binding.cvSend.setVisibility(View.VISIBLE);
+                                   binding.mainProgressBar.setVisibility(View.GONE);
+
+
+                               }
+                           }
+                       });
+
+                       Log.d(TAG, "onFailure: " + t.getMessage());
+                   }
+               }, executor);
+           }
+
+
         }
 
 
@@ -307,7 +410,7 @@ public class ChatFragment extends Fragment {
         }
 
         if (prompt == null || prompt.isEmpty()) {
-            ToastUtil.showToast("Prompt invalid", requireContext());
+            ToastUtil.showToast("Prompt tidak valid", requireContext());
             return;
         }
         progressDialog.dismiss();
@@ -327,7 +430,7 @@ public class ChatFragment extends Fragment {
 
                     if (fileUri != null) {
                         try {
-                            String prompt = "itu makanan apa dan berapa kalorinya dan kandungan gulanya, tidak perlu penjelasan langsung nama makanannya, kalori dan gula, contoh hasilnya: indomie goreng | Kalori  | Gula  | Catatan berikan noted tentang makanana itu | Saran berikan saran tentang makanan itu";
+                            String prompt = ConstantsAi.prompt_count_calories;
                             Bitmap bitmap = uriToBitmap(fileUri);
                             promptCaloriesValdation(bitmap, prompt);
                         } catch (IOException e) {

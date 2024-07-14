@@ -165,9 +165,35 @@
                         android:id="@+id/rlBottom"
                         android:layout_alignParentBottom="true"
                         android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:id="@+id/rlImagStore"
+                            android:layout_marginRight="@dimen/_8sdp"
+                            android:layout_centerVertical="true"
+
+                            android:layout_height="wrap_content">
+                            <ImageButton
+                                android:layout_width="@dimen/_20sdp"
+                                android:id="@+id/btnAddImagee"
+                                android:backgroundTint="@color/primary_light"
+                                android:background="@drawable/ic_add_image"
+                                android:layout_height="@dimen/_20sdp"/>
+
+                            <ImageButton
+                                android:layout_width="@dimen/_20sdp"
+                                android:id="@+id/btnDeleteImage"
+                                android:backgroundTint="@color/red"
+                                android:visibility="gone"
+                                android:background="@drawable/ic_times"
+                                android:layout_height="@dimen/_20sdp"/>
+                        </RelativeLayout>
+
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/rlImagStore"
                             android:layout_toLeftOf="@id/rlAction"
                             android:id="@+id/til_text"
                             app:boxBackgroundColor="#F0F0F0"

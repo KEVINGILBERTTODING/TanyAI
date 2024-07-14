@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tanyai.R;
 import com.example.tanyai.core.models.PromptModel;
 
@@ -36,6 +39,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         PromptModel promptModel = promptModelList.get(holder.getAdapterPosition());
         holder.rlSender.setVisibility(View.GONE);
         holder.rlReceiver.setVisibility(View.GONE);
+        holder.cvIvPrompt.setVisibility(View.GONE);
+
 
         if (promptModel.isMe()) {
             holder.rlSender.setVisibility(View.VISIBLE);
@@ -45,6 +50,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.rlReceiver.setVisibility(View.VISIBLE);
             holder.tvTextReceiver.setText(promptModel.getText());
             holder.tvTimeStampReceiver.setText(promptModel.getTimeStamp());
+        }
+
+        if (promptModel.getBitmap() != null) {
+            holder.cvIvPrompt.setVisibility(View.VISIBLE);
+            holder.ivPrompt.setImageBitmap(promptModel.getBitmap());
+
         }
 
     }
@@ -57,6 +68,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTextReceiver, tvTextSender, tvTimeStampReceiver,
         getTvTimeStampSender;
+        private ImageView ivPrompt;
+        private CardView cvIvPrompt;
         private RelativeLayout rlReceiver, rlSender;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +79,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             getTvTimeStampSender = itemView.findViewById(R.id.tvTimeStampSender);
             rlReceiver = itemView.findViewById(R.id.rlReceiver);
             rlSender = itemView.findViewById(R.id.rlSender);
+            ivPrompt = itemView.findViewById(R.id.ivPrompt);
+            cvIvPrompt = itemView.findViewById(R.id.cvIvPrompt);
         }
     }
 }
