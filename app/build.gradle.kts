@@ -55,12 +55,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("androidx.activity:activity-ktx:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
 
 
     implementation("com.intuit.ssp:ssp-android:1.1.0")
     implementation("com.intuit.sdp:sdp-android:1.1.0")
 
     implementation("com.google.guava:guava:31.0.1-android")
+    implementation("com.airbnb.android:lottie:6.4.0")
 
     // To use CallbackToFutureAdapter
     implementation("androidx.concurrent:concurrent-futures:1.2.0")
@@ -75,6 +78,7 @@ dependencies {
 
     // Required for streaming operations (to use `Publisher` from Reactive Streams)
     implementation("org.reactivestreams:reactive-streams:1.0.4")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 
 
 }

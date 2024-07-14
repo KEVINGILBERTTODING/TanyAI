@@ -15,27 +15,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvGreeting"
-                    android:text="Halo,"
-                    android:fontFamily="@font/popreg"
-                    android:textSize="@dimen/_8ssp"
-                    android:textColor="@color/bg_chat"/>
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/cvCalories"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvGreeting"
+                            android:text="Halo,"
+                            android:fontFamily="@font/popreg"
+                            android:textSize="@dimen/_8ssp"
+                            android:textColor="@color/bg_chat"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tanyain aku sesuatu dong"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tanyain aku sesuatu dong"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"/>
+
+
+                    </LinearLayout>
+                    
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_30sdp"
+                        android:id="@+id/cvCalories"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        app:cardBackgroundColor="@color/primary_light"
+                        app:cardCornerRadius="@dimen/_20sdp"
+                        app:cardElevation="0dp"
+                        android:layout_height="@dimen/_30sdp">
+                        <ImageButton
+                            android:layout_width="@dimen/_30sdp"
+                            android:backgroundTint="@color/white"
+                            android:id="@+id/btnCalories"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/ic_calories"/>
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+                
+                
+                
+
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -43,11 +80,14 @@
                     android:layout_height="match_parent"
 
                     android:background="@drawable/bg_chat">
+                    
+                   
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/lrEmpty"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
                         <ImageView
@@ -71,11 +111,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Aku bisa kasi informasi yang bikin kamu mind blowing."
+                            android:text="Aku bisa kasi informasi yang bikin kamu mind blowing loh."
                             android:layout_marginLeft="@dimen/_10sdp"
+                            android:textAlignment="center"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:fontFamily="@font/popreg"
-                            android:textSize="@dimen/_9ssp"
+                            android:textSize="@dimen/_10ssp"
                             android:textColor="@color/gray"/>
 
                     </LinearLayout>
@@ -114,10 +155,6 @@
                         </LinearLayout>
 
                     </androidx.core.widget.NestedScrollView>
-
-
-
-
 
 
 

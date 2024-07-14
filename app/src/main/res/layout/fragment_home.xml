@@ -50,7 +50,7 @@
                                 android:text="@string/home_desc"
                                 android:textColor="@color/white"
                                 android:fontFamily="@font/popmed"
-                                android:textSize="@dimen/_12ssp"/>
+                                android:textSize="@dimen/_11ssp"/>
 
                             <com.google.android.material.button.MaterialButton
                                 android:layout_width="wrap_content"
