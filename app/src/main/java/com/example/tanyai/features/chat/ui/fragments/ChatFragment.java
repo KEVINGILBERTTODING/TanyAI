@@ -30,9 +30,11 @@ import com.example.tanyai.core.models.ResultModel;
 import com.example.tanyai.databinding.FragmentChatFragmentBinding;
 import com.example.tanyai.features.chat.ui.adapters.ChatAdapter;
 import com.example.tanyai.features.chat.ui.widgets.CaloriesBottomSheet;
+import com.example.tanyai.features.chat.ui.widgets.ImagePickerOption;
 import com.example.tanyai.util.constants.ai.ConstantsAi;
 import com.example.tanyai.util.date.DateUtil;
 import com.example.tanyai.util.keyboard.KeyboardUtils;
+import com.example.tanyai.util.listeners.ItemClickListener;
 import com.example.tanyai.util.toast.ToastUtil;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.ai.client.generativeai.GenerativeModel;
@@ -51,7 +53,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements ItemClickListener {
 
     private FragmentChatFragmentBinding binding;
     private List<PromptModel> promptModelList = new ArrayList<>();
@@ -60,6 +62,8 @@ public class ChatFragment extends Fragment {
     private GenerativeModelFutures modelFutures;
     private Bitmap bitmapSelected;
     private Dialog progressDialog;
+    private ImagePickerOption imagePickerOption;
+    private boolean isCountCalories = false;
     private String TAG = ChatFragment.class.getSimpleName();
 
     @Override
@@ -100,6 +104,7 @@ public class ChatFragment extends Fragment {
 
         binding.btnSend.setOnClickListener(v -> promptValidate());
         binding.btnCalories.setOnClickListener(v -> {
+            isCountCalories = true;
             ImagePicker.with(requireActivity())
                     .cameraOnly()
                     .createIntent(intent -> {
@@ -118,15 +123,18 @@ public class ChatFragment extends Fragment {
         });
 
         binding.btnAddImagee.setOnClickListener(v -> {
-            pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                    .build());
+
+
+             imagePickerOption = ImagePickerOption.newInstance();
+            imagePickerOption.setItemClickListener(ChatFragment.this);
+            imagePickerOption.show(requireActivity().getSupportFragmentManager(), imagePickerOption.getTag());
+
         });
 
 
     }
 
-    ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+    private ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 // Callback is invoked after the user selects a media item or closes the
                 // photo picker.
@@ -432,9 +440,17 @@ public class ChatFragment extends Fragment {
 
                     if (fileUri != null) {
                         try {
-                            String prompt = getString(R.string.prompt_calories);
-                            Bitmap bitmap = uriToBitmap(fileUri);
-                            promptCaloriesValdation(bitmap, prompt);
+                            if (isCountCalories) { // if count calories
+                                String prompt = getString(R.string.prompt_calories);
+                                Bitmap bitmap = uriToBitmap(fileUri);
+                                promptCaloriesValdation(bitmap, prompt);
+                            }else { // if image picker camera selected
+                                bitmapSelected = uriToBitmap(fileUri);
+                                binding.ivImageSelected.setImageURI(fileUri);
+                                binding.rlImageSelected.setVisibility(View.VISIBLE);
+                                imagePickerOption.dismiss();
+
+                            }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -463,8 +479,25 @@ public class ChatFragment extends Fragment {
     }
 
 
+    @Override
+    public void setItemClickListener(int position, String action, Object data) {
+       try {
+           if (action.equals("gallery")) {
+            pickMedia.launch(new PickVisualMediaRequest.Builder()
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                    .build());
+           }else if (action.equals("camera")) {
+               isCountCalories = false;
+               ImagePicker.with(requireActivity())
+                       .cameraOnly()
+                       .createIntent(intent -> {
+                           startForProfileImageResult.launch(intent);
+                           return null;
+                       });
 
-
-
-
+           }
+       }catch (Throwable t) {
+           t.printStackTrace();
+       }
+    }
 }
