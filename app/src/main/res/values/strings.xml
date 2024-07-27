@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TanyAI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_desc">Ketik pertanyaan atau pernyataan Anda, dan AI kami akan merespons dengan cepat.</string>
+    <string name="prompt_calories">itu makanan apa dan berapa kalorinya dan kandungan gulanya, tidak perlu penjelasan langsung nama makanannya, kalori dan gula, contoh hasilnya: indomie goreng | Kalori  | Gula  | Catatan berikan noted tentang makanana itu | Saran berikan saran tentang makanan itu</string>
+</resources>

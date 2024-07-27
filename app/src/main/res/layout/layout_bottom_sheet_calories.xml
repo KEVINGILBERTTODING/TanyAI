@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/wave_bg"
+
+
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/wave_bg"
+            android:orientation="vertical"
+            android:id="@+id/lrTop"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                app:tint="@color/white"
+                android:layout_marginTop="@dimen/_minus10sdp"
+
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvName"
+                android:text="Indomie Goreng Jumbo"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/popsem"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/white"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indomie Goreng adalah mi instan yang digoreng dan dibumbui dengan bumbu yang mengandung banyak MSG."
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/popreg"
+                android:id="@+id/tvDesc"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:textSize="@dimen/_9ssp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/lrTop"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_minus10sdp"
+        android:background="@drawable/bg_bottom_sheet"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+
+
+                android:rowCount="3"
+                android:columnCount="3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+
+                    android:layout_row="1"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_40sdp"
+                        app:cardBackgroundColor="@color/primary_light"
+
+                        app:cardCornerRadius="@dimen/_20sdp"
+                        app:cardElevation="0dp"
+                        android:layout_gravity="center"
+                        android:layout_height="@dimen/_40sdp">
+                        <ImageButton
+                            android:layout_width="@dimen/_40sdp"
+                            android:backgroundTint="@color/white"
+
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/ic_calories"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kalori"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/popmed"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/popsem"
+                        android:includeFontPadding="false"
+                        android:layout_gravity="center"
+                        android:id="@+id/tvTotalCalories"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_row="1"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/primary_light"
+                        app:cardCornerRadius="@dimen/_20sdp"
+                        app:cardElevation="0dp"
+                        android:layout_height="@dimen/_40sdp">
+                        <ImageButton
+                            android:layout_width="@dimen/_30sdp"
+                            android:backgroundTint="@color/white"
+                            android:layout_gravity="center"
+
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/ic_candy"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gula"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/popmed"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/popsem"
+                        android:includeFontPadding="false"
+                        android:layout_gravity="center"
+                        android:id="@+id/tvTotalSugar"
+                        android:textSize="@dimen/_15ssp"
+                        android:textColor="@color/black"/>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:cardBackgroundColor="@color/primary_light"
+                app:contentPadding="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_info"/>
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_desc"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/popreg"
+                        android:layout_gravity="center"
+                        android:id="@+id/tvSaran"
+                        android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        app:lottie_autoPlay="true"
+        android:layout_height="@dimen/_200sdp"
+        app:lottie_rawRes="@raw/success_anim"/>
+
+        
+    </RelativeLayout>
+    
