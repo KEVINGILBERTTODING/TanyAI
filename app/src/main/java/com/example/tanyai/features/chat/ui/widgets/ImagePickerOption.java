@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class ImagePickerOption extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_bottom_sheet_image_options, container, false);
 
-        Button btnGallery, btnCamera;
+        ImageButton btnGallery, btnCamera;
 
         btnGallery = view.findViewById(R.id.btnGallery);
         btnCamera = view.findViewById(R.id.btnCamera);

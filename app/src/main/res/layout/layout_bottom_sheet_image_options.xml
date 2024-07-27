@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
     android:layout_width="match_parent"
+
+    android:background="@color/bg_chat"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/_10sdp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
@@ -15,42 +17,76 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             app:tint="@color/primary"
-            android:layout_marginTop="@dimen/_minus10sdp"
 
             android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:fontFamily="@font/popmed"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/black"
-            android:text="Pilih media"/>
+            android:text="Pilih Media"/>
 
-
-
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:columnCount="2"
+            android:rowCount="2"
             android:orientation="horizontal">
 
-
-            <Button
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                android:layout_margin="@dimen/_10sdp"
+                app:contentPadding="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                app:icon="@drawable/ic_gallery"
-                android:id="@+id/btnGallery"
-                android:text="Galeri"/>
-            <Button
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_row="1"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/_30sdp"
+                    android:id="@+id/btnGallery"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/primary"
+                    android:background="@drawable/ic_gallery"
+
+                    android:layout_height="@dimen/_30sdp"/>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/ic_camera"
-                android:id="@+id/btnCamera"
-                android:text="Kamera"/>
-        </LinearLayout>
+                android:layout_margin="@dimen/_10sdp"
+
+                app:cardElevation="0dp"
+
+                app:contentPadding="@dimen/_8sdp"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_row="1"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/primary"
+                    android:id="@+id/btnCamera"
+                    android:background="@drawable/ic_camera"
+
+                    android:layout_height="@dimen/_30sdp"/>
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+
+
+
 
     </LinearLayout>
 

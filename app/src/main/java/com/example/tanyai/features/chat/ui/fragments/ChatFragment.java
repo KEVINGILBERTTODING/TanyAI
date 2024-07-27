@@ -146,6 +146,7 @@ public class ChatFragment extends Fragment implements ItemClickListener {
                         binding.ivImageSelected.setImageURI(uri);
                         binding.rlImageSelected.setVisibility(View.VISIBLE);
                         binding.btnAddImagee.setVisibility(View.GONE);
+                        imagePickerOption.dismiss();
                     } catch (IOException e) {
                         bitmapSelected = null;
                         throw new RuntimeException(e);
