@@ -10,7 +10,6 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:id="@+id/rlReceiver"
 
-        android:visibility="gone"
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_alignParentLeft="true"
         android:orientation="vertical">
@@ -44,6 +43,19 @@
                     android:layout_marginRight="@dimen/_15sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:textSize="@dimen/_10ssp"/>
+
+                <ImageButton
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_below="@id/tvTextReceiver"
+                    android:id="@+id/btnCopy"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/primary"
+                    android:layout_height="@dimen/_15sdp"
+                    android:background="@drawable/baseline_content_copy_24"/>
             </RelativeLayout>
 
             <TextView
@@ -68,6 +80,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rlSender"
         android:layout_marginBottom="@dimen/_10sdp"
+        android:visibility="gone"
 
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/_30sdp"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,23 +16,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tanyai.R;
 import com.example.tanyai.core.models.PromptModel;
+import com.example.tanyai.util.listeners.ItemClickListener;
 
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context context;
     private List<PromptModel> promptModelList;
+    private ItemClickListener itemClickListener;
 
     public ChatAdapter(Context context, List<PromptModel> promptModelList) {
         this.context = context;
         this.promptModelList = promptModelList;
     }
 
+
     @NonNull
     @Override
     public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false);
         return new ViewHolder(view);
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -69,6 +77,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         private TextView tvTextReceiver, tvTextSender, tvTimeStampReceiver,
         getTvTimeStampSender;
         private ImageView ivPrompt;
+        private ImageButton btnCopy;
         private CardView cvIvPrompt;
         private RelativeLayout rlReceiver, rlSender;
         public ViewHolder(@NonNull View itemView) {
@@ -81,6 +90,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             rlSender = itemView.findViewById(R.id.rlSender);
             ivPrompt = itemView.findViewById(R.id.ivPrompt);
             cvIvPrompt = itemView.findViewById(R.id.cvIvPrompt);
+            btnCopy = itemView.findViewById(R.id.btnCopy);
+
+            btnCopy.setOnClickListener(v -> {
+                if (itemClickListener != null) {
+                    itemClickListener.setItemClickListener(getAdapterPosition(), "copy", promptModelList.get(getAdapterPosition()).getText());
+                }
+            });
         }
     }
 }

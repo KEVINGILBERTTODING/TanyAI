@@ -3,6 +3,8 @@ package com.example.tanyai.features.chat.ui.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -213,6 +215,7 @@ public class ChatFragment extends Fragment implements ItemClickListener {
         binding.rv.setAdapter(chatAdapter);
         binding.rv.setLayoutManager(linearLayoutManager);
         binding.rv.setHasFixedSize(true);
+        chatAdapter.setItemClickListener(ChatFragment.this);
     }
 
     private void storeToModel(String prompt, Bitmap bitmap, boolean isCountCalories) {
@@ -478,6 +481,12 @@ public class ChatFragment extends Fragment implements ItemClickListener {
         return bitmap;
     }
 
+    private void copyText(String message) {
+        ClipboardManager clipboardManager = (ClipboardManager) requireContext().getSystemService(requireContext().CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", message);
+        clipboardManager.setPrimaryClip(clip);
+        ToastUtil.showToast("Teks berhasil disalin", requireContext());
+    }
 
     @Override
     public void setItemClickListener(int position, String action, Object data) {
@@ -494,6 +503,10 @@ public class ChatFragment extends Fragment implements ItemClickListener {
                            startForProfileImageResult.launch(intent);
                            return null;
                        });
+
+           }else if (action.equals("copy")) {
+               String message = (String) data;
+               copyText(message);
 
            }
        }catch (Throwable t) {
