@@ -112,7 +112,8 @@ public class ChatFragment extends Fragment {
 
         binding.btnDeleteImage.setOnClickListener(v -> {
             bitmapSelected = null;
-            binding.btnDeleteImage.setVisibility(View.GONE);
+            binding.rlImageSelected.setVisibility(View.GONE);
+            binding.ivImageSelected.setImageURI(null);
             binding.btnAddImagee.setVisibility(View.VISIBLE);
         });
 
@@ -132,7 +133,8 @@ public class ChatFragment extends Fragment {
                 if (uri != null) {
                     try {
                         bitmapSelected = uriToBitmap(uri);
-                        binding.btnDeleteImage.setVisibility(View.VISIBLE);
+                        binding.ivImageSelected.setImageURI(uri);
+                        binding.rlImageSelected.setVisibility(View.VISIBLE);
                         binding.btnAddImagee.setVisibility(View.GONE);
                     } catch (IOException e) {
                         bitmapSelected = null;
@@ -184,7 +186,7 @@ public class ChatFragment extends Fragment {
         KeyboardUtils.hideKeyboard(requireActivity());
         binding.tilText.setError(null);
         binding.mainProgressBar.setVisibility(View.VISIBLE);
-        binding.btnDeleteImage.setVisibility(View.GONE);
+        binding.rlImageSelected.setVisibility(View.GONE);
 
         binding.cvSend.setVisibility(View.GONE);
 

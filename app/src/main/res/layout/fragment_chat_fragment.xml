@@ -180,13 +180,44 @@
                                 android:background="@drawable/ic_add_image"
                                 android:layout_height="@dimen/_20sdp"/>
 
-                            <ImageButton
-                                android:layout_width="@dimen/_20sdp"
-                                android:id="@+id/btnDeleteImage"
-                                android:backgroundTint="@color/red"
+                            <RelativeLayout
+                                android:layout_width="@dimen/_40sdp"
+                                android:id="@+id/rlImageSelected"
                                 android:visibility="gone"
-                                android:background="@drawable/ic_times"
-                                android:layout_height="@dimen/_20sdp"/>
+                                android:layout_height="@dimen/_40sdp">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    app:cardElevation="0dp"
+                                    android:backgroundTint="@color/bg_chat"
+                                    app:cardCornerRadius="@dimen/_10sdp"
+                                    android:layout_height="match_parent">
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+                                        <ImageView
+                                            android:id="@+id/ivImageSelected"
+                                            android:scaleType="fitXY"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"/>
+
+                                        <RelativeLayout
+                                            android:layout_width="@dimen/_15sdp"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_height="@dimen/_15sdp"
+                                            android:background="@drawable/bg_circle">
+                                            <ImageView
+                                                android:id="@+id/btnDeleteImage"
+
+                                                android:layout_width="@dimen/_15sdp"
+                                                android:tint="@color/red"
+                                                android:src="@drawable/ic_times"
+                                                android:layout_height="@dimen/_15sdp"/>
+                                        </RelativeLayout>
+                                    </RelativeLayout>
+                                </androidx.cardview.widget.CardView>
+                            </RelativeLayout>
+
                         </RelativeLayout>
 
 
