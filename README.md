@@ -37,7 +37,7 @@ Java Android, and Figma
 2. Create a new file named local.properties
    - ![image](https://github.com/user-attachments/assets/9b09f86c-2494-46bb-a750-46dd3cbb9df9)
      
-3. Create a file and insert the following code into local.properties
+3. Insert the following code into local.properties
 
 ```bash
   sdk.dir=C\:\\Users\\YOUR_PC_NAME\\AppData\\Local\\Android\\Sdk
